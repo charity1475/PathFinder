@@ -3,5 +3,5 @@ compiler:
   - clang
   - g++
 script:
-  g++ main.cpp
+  - echo "g++ buil"
 
