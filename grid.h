@@ -4,7 +4,6 @@
 
 #ifndef STARTER_GRID_H
 #define STARTER_GRID_H
-
 #endif //STARTER_GRID_H
 
 
