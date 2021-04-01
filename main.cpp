@@ -69,7 +69,7 @@ std::vector<std::vector<State>> ReadBoardFile(std::string path){
     return board;
 }
 int main() {
-    std::vector<std::vector<State>> newBoard = ReadBoardFile("/home/charity/CLionProjects/starter/grids.txt");
+    auto newBoard = ReadBoardFile("/home/charity/CLionProjects/Grids/grids.txt");
     std::cout << "From stream file"<<"\n";
     printBoard(newBoard);
     return 0;
