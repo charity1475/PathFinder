@@ -1,13 +1,7 @@
 language: cpp
-<<<<<<< HEAD
 compiler:
   - clang
-  - gcc
+  - g++
 script:
-  -make
-=======
-install: make get-deps
-compiler:
-  - clang
-  - gcc
->>>>>>> master
+  -g++ main.cpp
+
