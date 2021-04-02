@@ -28,3 +28,6 @@ crucial part in autonomous navigation.
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./main`.
+   
+
+#[Read More About A* Search](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)

@@ -3,16 +3,6 @@
 #include <fstream>
 #include "sstream"
 
-void stream(){
-    std::istringstream myStream("1 2 3 4 5 6 7");
-    int n ;
-    while (myStream){
-        myStream>>n;
-        if (myStream){
-            std::cout <<n<<"\n";
-        }
-    }
-}
 enum class State {
     kEmpty,
     kObstacle
@@ -46,11 +36,6 @@ void printBoard(std::vector<std::vector<State>> board) {
     }
 }
 
-void printVector(std::vector<int> vector){
-    for (std::size_t i = 0; i < vector.size(); i++){
-        std::cout << vector[i] << std::endl;
-    }
-}
 std::vector<std::vector<State>> ReadBoardFile(std::string path){
     std::vector<std::vector<State>> board;
     std::vector<State>inputVector;
@@ -58,19 +43,19 @@ std::vector<std::vector<State>> ReadBoardFile(std::string path){
     std::string line;
     if(myReadFile.is_open()){
         while(getline(myReadFile, line)){
-            std::cout << line<<"\n";
-            // on each line call parse line get a vector
+            std::cout << line<<std::endl;
+            // on each line call parse line to get a vector
             inputVector = ParseLine(line);
             // return a vector of vector
             board.push_back(inputVector);
         }
         myReadFile.close();
-    } else std::cout << "Could not open file";
+    } else std::cout << "Could not open the file"<<std::endl;
     return board;
 }
 int main() {
-    auto newBoard = ReadBoardFile("/home/charity/CLionProjects/Grids/grids.txt");
-    std::cout << "From stream file"<<"\n";
-    printBoard(newBoard);
+    auto board = ReadBoardFile("/home/charity/CLionProjects/Grids/grids.txt");
+    std::cout << "From grids file"<<std::endl;
+    printBoard(board);
     return 0;
 }
