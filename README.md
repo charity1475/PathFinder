@@ -6,6 +6,10 @@ The aim of this project is to implement the A* search algorithm  to traverse the
 Given input grids from t file the program reads the maze's grids and compute the path from 
 destination A to B. The program returns the maze and the path. Motion planning/Path planning is the
 crucial part in autonomous navigation.
+
+![alt text](https://github.com/charity1475/PathFinder/blob/master/bestpath.png?raw=true)
+
+
 ## Dependencies for Running Locally
 * cmake >= 3.7
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
