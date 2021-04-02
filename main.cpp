@@ -54,7 +54,7 @@ std::vector<std::vector<State>> ReadBoardFile(std::string path){
     return board;
 }
 int main() {
-    auto board = ReadBoardFile("/home/charity/CLionProjects/Grids/grids.txt");
+    auto board = ReadBoardFile("/home/charity/CLionProjects/Grids/resources/grids.txt");
     std::cout << "From grids file"<<std::endl;
     printBoard(board);
     return 0;
