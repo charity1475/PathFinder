@@ -1,12 +1,11 @@
 [![Build Status](https://travis-ci.com/charity1475/messanger.io.svg?token=emDS5SVA99dbgxURt67q&branch=main)](https://travis-ci.com/charity1475/messanger.io) 
 # Capstone Projects Repository.
+# Building an OpenStreetMap Route Planner.
 
-This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213).
-
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
-
-In this project, you can build your own C++ application starting with this repo, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
-
+The aim of this project is to implement the A* search algorithm  to traverse the street map.
+Given input grids from t file the program reads the maze's grids and compute the path from 
+destination A to B. The program returns the maze and the path. Motion planning/Path planning is the
+crucial part in autonomous navigation.
 ## Dependencies for Running Locally
 * cmake >= 3.7
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
