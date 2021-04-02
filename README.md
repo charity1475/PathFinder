@@ -30,4 +30,4 @@ crucial part in autonomous navigation.
 4. Run it: `./main`.
    
 
-#[Read More About A* Search](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
+# [Read More About A* Search](http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html)
