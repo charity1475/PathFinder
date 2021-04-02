@@ -5,7 +5,7 @@
 The aim of this project is to implement the A* search algorithm  to traverse the street map.
 Given input grids from t file the program reads the maze's grids and compute the path from 
 destination A to B. The program returns the maze and the path. Motion planning/Path planning is the
-crucial part in autonomous navigation.
+crucial part in autonomous navigation. [Program Design](resources/ProgramDesign.md)
 
 ![alt text](https://github.com/charity1475/PathFinder/blob/master/resources/bestpath.png?raw=true)  ![alt text](https://github.com/charity1475/PathFinder/blob/master/resources/grid.png?raw=true)
 

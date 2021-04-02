@@ -48,3 +48,4 @@ explore next. The next node to explore is the one with the lowest total cost + h
 is repeated until the end is found, as long as there are still open nodes to explore.
 
 ```
+[Heuristic](/Heuristic.md)

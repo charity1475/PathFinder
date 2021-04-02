@@ -53,9 +53,18 @@ std::vector<std::vector<State>> ReadBoardFile(std::string path){
     } else std::cout << "Could not open the file"<<std::endl;
     return board;
 }
+std::vector<std::vector<State>> Search(std::vector<std::vector<State>>board,int length[]){
+    std::vector<std::vector<State>> solution;
+    std::cout <<"No path Found"<<std::endl;
+    return solution;
+}
 int main() {
     auto board = ReadBoardFile("/home/charity/CLionProjects/Grids/resources/grids.txt");
     std::cout << "From grids file"<<std::endl;
     printBoard(board);
+    int length[2] = {4, 5};
+    //std::vector<std::vector<State>> start = {{0,0}};
+    std::vector<std::vector<State>> solution = Search({{}},length);
+    printBoard(solution);
     return 0;
 }
