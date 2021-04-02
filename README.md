@@ -7,7 +7,7 @@ Given input grids from t file the program reads the maze's grids and compute the
 destination A to B. The program returns the maze and the path. Motion planning/Path planning is the
 crucial part in autonomous navigation.
 
-![alt text](https://github.com/charity1475/PathFinder/blob/master/resources/bestpath.png?raw=true)  ![alt text](https://github.com/charity1475/PathFinder/blob/master/resources/read.png?raw=true)
+![alt text](https://github.com/charity1475/PathFinder/blob/master/resources/bestpath.png?raw=true)  ![alt text](https://github.com/charity1475/PathFinder/blob/master/resources/grid.png?raw=true)
 
 
 ## Dependencies for Running Locally
