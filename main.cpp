@@ -58,6 +58,14 @@ std::vector<std::vector<State>> Search(std::vector<std::vector<State>>board,int 
     std::cout <<"No path Found"<<std::endl;
     return solution;
 }
+int heuristic(int x1,int y1,int x2,int y2){
+    return abs(x2-x1) + abs(y2-y1);
+}
+void addToOpen(int x,int y,int g,int h,std::vector<std::vector<int>> open,std::vector<std::vector<State>> grid){
+    std::vector<int> node ={x,y,g,h};
+    open.push_back(node);
+    //Set the grid value for the x and y coordinates to the enum value kClosed. We have added kClosed to the set of enum values.
+}
 int main() {
     auto board = ReadBoardFile("/home/charity/CLionProjects/Grids/resources/grids.txt");
     std::cout << "From grids file"<<std::endl;
@@ -66,5 +74,7 @@ int main() {
     //std::vector<std::vector<State>> start = {{0,0}};
     std::vector<std::vector<State>> solution = Search({{}},length);
     printBoard(solution);
+    int number = heuristic(3,5,2,3);
+    std::cout <<number<<std::endl;
     return 0;
 }
