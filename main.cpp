@@ -2,11 +2,13 @@
 #include <vector>
 #include <fstream>
 #include "sstream"
+#include<algorithm>
 
 enum class State {
     kEmpty,
     kObstacle,
-    kClosed
+    kClosed,
+    kPath
 };
 std::string CellString(State state){
     switch(state){
@@ -14,6 +16,7 @@ std::string CellString(State state){
         default: return "0 ";
     }
 }
+
 std::vector<State> ParseLine(std::string line){
     std::vector<State> myVector;
     std::istringstream myStream(line);
@@ -54,31 +57,67 @@ std::vector<std::vector<State>> ReadBoardFile(std::string path){
     } else std::cout << "Could not open the file"<<std::endl;
     return board;
 }
-std::vector<std::vector<State>> Search(int start[],int goal[]){
-    std::vector<std::vector<State>> board;
-    std::cout <<"No path Found"<<std::endl;
-    return board;
-}
-int heuristic(int x1,int y1,int x2,int y2){
+int Heuristic(int x1,int y1,int x2,int y2){
     return abs(x2-x1) + abs(y2-y1);
 }
-void addToOpen(int x,int y,int g,int h,std::vector<std::vector<int>> &open,std::vector<std::vector<State>> &grid){
+void AddToOpen(int x,int y,int g,int h,std::vector<std::vector<int>> &openList,std::vector<std::vector<State>> &grid){
     std::vector<int> node ={x,y,g,h};
-    open.push_back(node);
+    openList.push_back(node);
     //Set the grid value for the x and y coordinates to the enum value kClosed. We have added kClosed to the set of enum values.
-    grid[x].push_back(State::kClosed);
-    grid[y].push_back(State::kClosed);
+    grid[x][y] = State::kClosed;
 
+}
+
+bool CheckValidCell(int x,int y,std::vector<std::vector<State>> &grid){
+    for(int i =0;i<grid.size();i++){
+        for(int j=0;j<grid[i].size();++j){
+            if(static_cast<int>(static_cast<int>(grid[i][j]) == x && static_cast<int>(grid[i][j]) == y) && grid[i][j]== State::kEmpty){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+}
+bool Compare(const std::vector<int> first,const std::vector<int> second){
+    int f1=first[2]+first[3];
+    int f2=second[2]+second[3];
+    return f1<f2;
+}
+void CellSort(std::vector<std::vector<int>> *myVector){
+    std::sort(myVector->begin(), myVector->end(),Compare);
+}
+std::vector<std::vector<State>> Search(std::vector<std::vector<State>>grid,int init[2],int goal[2]){
+    std::vector<std::vector<int>> open {};
+    //initialize the starting node
+    int x = init[0];
+    int y = init[1];
+    int g = 0;
+    int h = Heuristic(x,y,goal[0],goal[1]);
+    AddToOpen(x,y,g,h,open,grid);
+    while(!open.empty()){
+        // sort the open list and get current node
+        CellSort(&open);
+        std::vector<int> currentNode = open.back();
+        open.pop_back();
+        x = currentNode[0];
+        y = currentNode[1];
+        grid[x][y] = State::kPath;
+        // check if i reached the goal
+        if(x==goal[0] && y==goal[1]) return grid;
+        // else go to neighbors
+
+    }
+    std::cout << "No path found." << std::endl;
+    return std::vector<std::vector<State>> {};
 }
 int main() {
     auto board = ReadBoardFile("/home/charity/CLionProjects/Grids/resources/grids.txt");
     std::cout << "From grids file"<<std::endl;
     printBoard(board);
-    int start[2] ={0,0};
-    int goal[2] ={4,5};
-    std::vector<std::vector<State>> solution = Search(start,goal);
+    int init[2] = {0, 0};
+    int goal[2] = {4, 5};
+    std::vector<std::vector<State>>solution = Search(board, init, goal);
     printBoard(solution);
-    int number = heuristic(3,5,2,3);
-    std::cout <<number<<std::endl;
     return 0;
 }
