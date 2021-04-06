@@ -1,0 +1,3 @@
+/home/charity/CLionProjects/Grids/CMakeFiles/rebuild_cache.dir
+/home/charity/CLionProjects/Grids/CMakeFiles/edit_cache.dir
+/home/charity/CLionProjects/Grids/CMakeFiles/Grids.dir

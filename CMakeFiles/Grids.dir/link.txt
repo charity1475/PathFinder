@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Grids.dir/main.cpp.o  -o Grids 
