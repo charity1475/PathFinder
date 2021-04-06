@@ -10,9 +10,12 @@ enum class State {
     kClosed,
     kPath
 };
+// directional deltas
+const int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 std::string CellString(State state){
     switch(state){
         case State::kObstacle: return "⛰️ ";
+        case State::kPath: return "🚗   ";
         default: return "0 ";
     }
 }
@@ -69,15 +72,12 @@ void AddToOpen(int x,int y,int g,int h,std::vector<std::vector<int>> &openList,s
 }
 
 bool CheckValidCell(int x,int y,std::vector<std::vector<State>> &grid){
-    for(int i =0;i<grid.size();i++){
-        for(int j=0;j<grid[i].size();++j){
-            if(static_cast<int>(static_cast<int>(grid[i][j]) == x && static_cast<int>(grid[i][j]) == y) && grid[i][j]== State::kEmpty){
-                return true;
-            }else{
-                return false;
-            }
-        }
+    bool on_grid_x =(x>=0 && x<grid.size());
+    bool on_grid_y =(y>=0 && y<grid[0].size());
+    if(on_grid_x && on_grid_y){
+        return grid[x][y] == State::kEmpty;
     }
+    return false;
 }
 bool Compare(const std::vector<int> first,const std::vector<int> second){
     int f1=first[2]+first[3];
@@ -86,6 +86,23 @@ bool Compare(const std::vector<int> first,const std::vector<int> second){
 }
 void CellSort(std::vector<std::vector<int>> *myVector){
     std::sort(myVector->begin(), myVector->end(),Compare);
+}
+
+void ExpandNeighbors(std::vector<int> currentNode, int goal[2],
+                     std::vector<std::vector<int>>& openList,
+                     std::vector<std::vector<State>>& grid){
+    int currentX = currentNode[0];
+    int currentY = currentNode[1];
+    int g = currentNode[2];
+    for(int i=0;i<4;++i){
+        int nextX = currentX + delta[i][0];
+        int nextY = currentY + delta[i][1];
+        if (CheckValidCell(nextX,nextY,grid)){
+            int h = Heuristic(nextX,nextY,goal[0],goal[1]);
+            AddToOpen(nextX,nextY,g+1,h,openList,grid);
+        }
+    }
+
 }
 std::vector<std::vector<State>> Search(std::vector<std::vector<State>>grid,int init[2],int goal[2]){
     std::vector<std::vector<int>> open {};
@@ -104,13 +121,17 @@ std::vector<std::vector<State>> Search(std::vector<std::vector<State>>grid,int i
         y = currentNode[1];
         grid[x][y] = State::kPath;
         // check if i reached the goal
-        if(x==goal[0] && y==goal[1]) return grid;
+        if(x==goal[0] && y==goal[1]){
+            return grid;
+        }
         // else go to neighbors
+        ExpandNeighbors(currentNode,goal,open,grid);
 
     }
     std::cout << "No path found." << std::endl;
     return std::vector<std::vector<State>> {};
 }
+
 int main() {
     auto board = ReadBoardFile("/home/charity/CLionProjects/Grids/resources/grids.txt");
     std::cout << "From grids file"<<std::endl;
