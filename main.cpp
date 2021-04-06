@@ -5,18 +5,22 @@
 #include<algorithm>
 
 enum class State {
+    kStart,
     kEmpty,
     kObstacle,
     kClosed,
-    kPath
+    kPath,
+    kFinish
 };
 // directional deltas
 const int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 std::string CellString(State state){
     switch(state){
-        case State::kObstacle: return "⛰️ ";
+        case State::kObstacle: return "⛰   ";
         case State::kPath: return "🚗   ";
-        default: return "0 ";
+        case State::kStart: return "🚦   ";
+        case State::kFinish: return "🏁   ";
+        default: return "0   ";
     }
 }
 
@@ -82,7 +86,7 @@ bool CheckValidCell(int x,int y,std::vector<std::vector<State>> &grid){
 bool Compare(const std::vector<int> first,const std::vector<int> second){
     int f1=first[2]+first[3];
     int f2=second[2]+second[3];
-    return f1<f2;
+    return f1>f2;
 }
 void CellSort(std::vector<std::vector<int>> *myVector){
     std::sort(myVector->begin(), myVector->end(),Compare);
@@ -91,15 +95,16 @@ void CellSort(std::vector<std::vector<int>> *myVector){
 void ExpandNeighbors(std::vector<int> currentNode, int goal[2],
                      std::vector<std::vector<int>>& openList,
                      std::vector<std::vector<State>>& grid){
-    int currentX = currentNode[0];
-    int currentY = currentNode[1];
+    int x = currentNode[0];
+    int y = currentNode[1];
     int g = currentNode[2];
     for(int i=0;i<4;++i){
-        int nextX = currentX + delta[i][0];
-        int nextY = currentY + delta[i][1];
-        if (CheckValidCell(nextX,nextY,grid)){
-            int h = Heuristic(nextX,nextY,goal[0],goal[1]);
-            AddToOpen(nextX,nextY,g+1,h,openList,grid);
+        int x2 = x + delta[i][0];
+        int y2 = y + delta[i][1];
+        if (CheckValidCell(x2,y2,grid)){
+            int g2 = g + 1;
+            int h2 = Heuristic(x2,y2,goal[0],goal[1]);
+            AddToOpen(x2,y2,g2,h2,openList,grid);
         }
     }
 
@@ -112,16 +117,18 @@ std::vector<std::vector<State>> Search(std::vector<std::vector<State>>grid,int i
     int g = 0;
     int h = Heuristic(x,y,goal[0],goal[1]);
     AddToOpen(x,y,g,h,open,grid);
-    while(!open.empty()){
+    while(open.size() > 0){
         // sort the open list and get current node
         CellSort(&open);
-        std::vector<int> currentNode = open.back();
+        auto currentNode = open.back();
         open.pop_back();
         x = currentNode[0];
         y = currentNode[1];
         grid[x][y] = State::kPath;
         // check if i reached the goal
         if(x==goal[0] && y==goal[1]){
+            grid[ init[0] ][ init[1] ] = State::kStart;
+            grid[ goal[0] ][ goal[1] ] = State::kFinish;
             return grid;
         }
         // else go to neighbors
